@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoManager - Autentificare</title>
+    <link rel="stylesheet" href="styles/login.css">
+    <script src="scripts/login.js" ></script>
+</head>
+<body>
+    <div class="auth-container">
+        
+        <div class="landing-section">
+            <div class="logo">🌱</div>
+            <h1>EcoManager</h1>
+            <p>Sistemul tău inteligent pentru gestionarea deșeurilor urbane. Contribuie la un oraș mai curat și un mediu mai sănătos!</p>
+        </div>
+        <div class="form-section">
+            <div class="form-toggle">
+                <button class="toggle active" onclick="showLogin()">Autentificare</button>
+                <button class="toggle" onclick="showSignup()">Înregistrare</button>
+            </div>
+
+            <div class="form-container">
+                <!--login-->
+                <form class="form active" id="loginForm">
+                    <h2>Bun venit înapoi!</h2>
+                    
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">Parola</label>
+                        <div class="password-group">
+                            <input type="password" id="loginPassword" name="password" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">👁️</button>
+                        </div>
+                    </div>
+                    <button type="submit" class="submitbutton">Intră în cont</button>
+                    <div class="form-footer">
+                        <a href="./forgotpassword">Ai uitat parola?</a>
+                    </div>
+                </form>
+
+                <!--signup  -->
+                <form class="form hidden" id="signupForm">
+                    <h2>Creeaza cont nou</h2>
+
+                    <div class="form-group">
+                        <label for="signupName">Nume complet</label>
+                        <input type="text" id="signupName" name="full_name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" name="email" required>
+                        <div class="email-validation" id="emailValidation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupPassword">Parola</label>
+                        <div class="password-group">
+                            <input type="password" id="signupPassword" name="password" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('signupPassword')">👁️</button>
+                        </div>
+                        <div class="password-requirements" id="passwordRequirements">
+                            <div class="requirement" id="req-length">
+                                <span class="icon">✓</span>
+                                <span>Minimum 8 caractere</span>
+                            </div>
+                            <div class="requirement" id="req-upper">
+                                <span class="icon">✓</span>
+                                <span>O litera mare</span>
+                            </div>
+                            <div class="requirement" id="req-lower">
+                                <span class="icon">✓</span>
+                                <span>O literă mica</span>
+                            </div>
+                            <div class="requirement" id="req-number">
+                                <span class="icon">✓</span>
+                                <span>Un numar</span>
+                            </div>
+                            <div class="requirement" id="req-special">
+                                <span class="icon">✓</span>
+                                <span>Un caracter special (!@#$%^&*)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupConfirmPassword">Confirmă parola</label>
+                        <div class="password-group">
+                            <input type="password" id="signupConfirmPassword" name="confirm_password" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('signupConfirmPassword')">👁️</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submitbutton">Creeaza contul</button>
+
+                    <div class="form-footer">
+                        Prin înregistrare accepți <a href="#">Termenii si Condițiile</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
