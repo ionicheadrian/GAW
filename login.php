@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';      // !!!!
+require_once 'config/config.php';       // !!!!
 if (is_logged_in()) {//verificam daca utilizatoru este logat
     redirect('dashboard.php');
 }

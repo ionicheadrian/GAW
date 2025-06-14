@@ -1,8 +1,6 @@
 <?php
-// logout.php - Fișier simplu pentru logout
-
 // Include configurația
-require_once 'config.php';
+require_once 'config/config.php';   
 
 // Șterge toate variabilele din sesiune
 $_SESSION = array();
