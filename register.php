@@ -134,7 +134,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="styles/register.css" type="text/css">
 </head>
 <body>
-    <script src="scripts/validatepass.js"></script>
     <div class="container">
         <div class="welcome">
             <div class="logo">🌱</div>
@@ -180,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <button type="button" class="password-toggle" onclick="togglePassword('password')">👁️</button>
                     </div>
                     
-                    <!-- Cerințe în timp real -->
+                    <!--requirementurile in timp real-->
                     <div class="requirements">
                         <small>Parola trebuie să conțină:</small>
                         <div id="req-length" class="requirement invalid">
@@ -226,7 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
-
+<script src="scripts/validatepass.js"></script>
     
 </body>
 </html>
