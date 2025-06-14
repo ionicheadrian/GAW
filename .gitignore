@@ -1,2 +1,15 @@
 # environment files
 .env
+# node_modules dacă ai tool-uri JS locale
+node_modules/
+
+# baza de date locală SQLite
+data/eco_db.sqlite
+
+# IDE/editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
