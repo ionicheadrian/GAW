@@ -1,8 +1,5 @@
 <?php
-// register.php - MySQLi Procedural cu Prepared Statements (MAXIM SIGUR)
-
-require_once 'config.php';
-
+require_once 'config/config.php';   
 if (is_logged_in()) {
     redirect('dashboard.php');
 }
@@ -19,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $old_data = $_POST;
     
-    // Validări
+    //validarile
     if (empty($full_name)) {
         $errors[] = "Numele este obligatoriu!";
     } elseif (strlen($full_name) < 2) {
@@ -58,60 +55,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = "Parolele nu coincid!";
     }
     
-    // Verifică unicitatea cu prepared statements
+    //verificari daca nu avem erori
     if (empty($errors)) {
-        // Verifică email-ul cu prepared statement
+        //verificam emailul cu statementuri
+        //statementurile pre definite sunt bune impotriva SQL injeciton
         $query = "SELECT id FROM users WHERE email = ?";
         $stmt = mysqli_prepare($connection, $query);
-        
         if (!$stmt) {
             $errors[] = "Eroare la verificarea datelor!";
         } else {
             mysqli_stmt_bind_param($stmt, "s", $email);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
-            
             if (mysqli_num_rows($result) > 0) {
                 $errors[] = "Acest email este deja înregistrat!";
             }
-            
             mysqli_stmt_close($stmt);
         }
-        
-        // Verifică username-ul cu prepared statement (doar dacă nu avem erori)
+        //verif pentru user
         if (empty($errors)) {
             $query = "SELECT id FROM users WHERE username = ?";
             $stmt = mysqli_prepare($connection, $query);
-            
             if (!$stmt) {
                 $errors[] = "Eroare la verificarea datelor!";
             } else {
                 mysqli_stmt_bind_param($stmt, "s", $username);
                 mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
-                
                 if (mysqli_num_rows($result) > 0) {
                     $errors[] = "Acest username este deja folosit!";
                 }
-                
                 mysqli_stmt_close($stmt);
             }
         }
     }
-    
-    // Înregistrează utilizatorul cu prepared statement
+    //register pentur utilizator
     if (empty($errors)) {
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
-        
         $query = "INSERT INTO users (username, full_name, email, password, role, created_at) VALUES (?, ?, ?, ?, 'citizen', NOW())";
         $stmt = mysqli_prepare($connection, $query);
-        
         if (!$stmt) {
             $errors[] = "Eroare la pregătirea înregistrării!";
         } else {
-            // Bind parametrii (ssss = 4 stringuri)
             mysqli_stmt_bind_param($stmt, "ssss", $username, $full_name, $email, $password_hash);
-            
             if (mysqli_stmt_execute($stmt)) {
                 $_SESSION['success_message'] = "Cont creat cu succes! Te poți autentifica acum.";
                 mysqli_stmt_close($stmt);
@@ -119,7 +105,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $errors[] = "Eroare la crearea contului: " . mysqli_stmt_error($stmt);
             }
-            
             mysqli_stmt_close($stmt);
         }
     }
@@ -134,12 +119,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="styles/register.css" type="text/css">
 </head>
 <body>
-    <script src="scripts/validatepass.js"></script>
     <div class="container">
         <div class="welcome">
             <div class="logo">🌱</div>
             <h1>EcoManager</h1>
-            <p>Alătură-te comunității pentru un oraș mai curat! Creează-ți contul și începe să contribui la un mediu mai sănătos.</p>
+            <p>Alatură-te comunitătii pentru un oras mai curat! Creeaza-ti contul si incepe sa contribui la un mediu mai sănatos.</p>
         </div>
         
         <div class="form-area">
@@ -151,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             <?php endif; ?>
             
-            <h2 class="form-title">Creează cont nou</h2>
+            <h2 class="form-title">Creeaza cont nou</h2>
             
             <form method="POST">
                 <div class="form-group">
@@ -164,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" required 
                            value="<?= htmlspecialchars($old_data['username'] ?? '') ?>">
-                    <small>Doar litere, cifre și underscore. Minim 3 caractere.</small>
+                    <small>Doar litere, cifre si underscore. Minim 3 caractere.</small>
                 </div>
                 
                 <div class="form-group">
@@ -180,24 +164,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <button type="button" class="password-toggle" onclick="togglePassword('password')">👁️</button>
                     </div>
                     
-                    <!-- Cerințe în timp real -->
+                    <!--requirementurile in timp real-->
                     <div class="requirements">
-                        <small>Parola trebuie să conțină:</small>
+                        <small>Parola trebuie să contina:</small>
                         <div id="req-length" class="requirement invalid">
                             <span class="requirement-icon">✗</span>
                             <span>Minimum 8 caractere</span>
                         </div>
                         <div id="req-uppercase" class="requirement invalid">
                             <span class="requirement-icon">✗</span>
-                            <span>O literă mare (A-Z)</span>
+                            <span>O litera mare (A-Z)</span>
                         </div>
                         <div id="req-lowercase" class="requirement invalid">
                             <span class="requirement-icon">✗</span>
-                            <span>O literă mică (a-z)</span>
+                            <span>O litera mica (a-z)</span>
                         </div>
                         <div id="req-number" class="requirement invalid">
                             <span class="requirement-icon">✗</span>
-                            <span>Un număr (0-9)</span>
+                            <span>Un numar (0-9)</span>
                         </div>
                         <div id="req-special" class="requirement invalid">
                             <span class="requirement-icon">✗</span>
@@ -207,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 
                 <div class="form-group">
-                    <label for="confirm_password">Confirmă parola</label>
+                    <label for="confirm_password">Confirma parola</label>
                     <div class="password-field">
                         <input type="password" id="confirm_password" name="confirm_password" required>
                         <button type="button" class="password-toggle" onclick="togglePassword('confirm_password')">👁️</button>
@@ -217,16 +201,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
                 
-                <button type="submit" class="submit-button">Creează contul</button>
+                <button type="submit" class="submit-button">Creeaza contul</button>
                 
                 <div class="footer-links">
-                    <p>Ai deja cont? <a href="login.php">Autentifică-te aici</a></p>
-                    <p><small>Prin înregistrare accepți <a href="#">Termenii și Condițiile</a></small></p>
+                    <p>Ai deja cont? <a href="login.php">Autentifica-te aici</a></p>
+                    <p><small>Prin inregistrare acceptati <a href="#">Termenii si Condițiile</a></small></p>
                 </div>
             </form>
         </div>
     </div>
-
+<script src="scripts/validatepass.js"></script>
     
 </body>
 </html>

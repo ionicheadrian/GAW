@@ -1,72 +1,96 @@
 <?php
-// forgot_password.php - Varianta simplă
-
-require_once 'config.php';
-
-if (is_logged_in()) {
+require_once 'config/config.php';      //!!!
+if (is_logged_in()) { //verifiacarea sesiunii
     redirect('dashboard.php');
 }
-
+//init
 $errors = [];
 $success = '';
 $old_data = [];
 
+//data checking sa verificam daca datele sunt nule sau nu
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = clean_input($_POST['email'] ?? '');
-    $new_password = $_POST['new_password'] ?? '';
-    $confirm_password = $_POST['confirm_password'] ?? '';
-    
+    $email = '';
+    if (isset($_POST['email'])) {
+        $email = clean_input($_POST['email']);
+    }
+
+    $new_password = '';
+    if (isset($_POST['new_password'])) {
+        $new_password = $_POST['new_password'];
+    }
+
+    $confirm_password = '';
+    if (isset($_POST['confirm_password'])) {
+        $confirm_password = $_POST['confirm_password'];
+    }
+
     $old_data = $_POST;
     
-    // Validări de bază
+    //verificam daca exista datele de baza 
+    // gen email sau daca (formatul email ului este bun)
     if (empty($email)) {
         $errors[] = "Email-ul este obligatoriu!";
     } elseif (!is_valid_email($email)) {
         $errors[] = "Formatul email-ului nu este valid!";
     }
     
+    //human error/ error handlin enorm de mult
     if (empty($new_password)) {
-        $errors[] = "Noua parolă este obligatorie!";
+        $errors[] = "Noua parola este obligatorie!";
     } elseif (strlen($new_password) < 8) {
-        $errors[] = "Parola trebuie să aibă cel puțin 8 caractere!";
+        $errors[] = "Parola trebuie sa aiba cel putin 8 caractere!";
     } elseif (!preg_match('/[A-Z]/', $new_password)) {
-        $errors[] = "Parola trebuie să conțină cel puțin o literă mare!";
+        $errors[] = "Parola trebuie sa contina cel putin o litera mare!";
     } elseif (!preg_match('/[a-z]/', $new_password)) {
-        $errors[] = "Parola trebuie să conțină cel puțin o literă mică!";
+        $errors[] = "Parola trebuie sa contina cel putin o litera mica!";
     } elseif (!preg_match('/[0-9]/', $new_password)) {
-        $errors[] = "Parola trebuie să conțină cel puțin un număr!";
+        $errors[] = "Parola trebuie sa contina cel putin un numar!";
     } elseif (!preg_match('/[!@#$%^&*()_+\-=\[\]{};\':"\\|,.<>\/?]/', $new_password)) {
-        $errors[] = "Parola trebuie să conțină cel puțin un caracter special!";
+        $errors[] = "Parola trebuie sa contina cel putin un caracter special!";
     }
     
     if ($new_password !== $confirm_password) {
         $errors[] = "Parolele nu coincid!";
     }
     
-    // Verifică dacă email-ul există și actualizează parola
+    // verificam daca exista sau nu emailul in bd
     if (empty($errors)) {
-        try {
-            // Verifică dacă email-ul există
-            $stmt = $pdo->prepare("SELECT id, full_name FROM users WHERE email = ?");
-            $stmt->execute([$email]);
-            $user = $stmt->fetch();
+        //incepem cu queryul pentru verificarea emailului dupa id si fullname
+        // e statement pt ca ne protejeaza de sql injections
+        $query = "SELECT id, full_name FROM users WHERE email = ?";
+        $stmt = mysqli_prepare($connection, $query); 
+        if (!$stmt) {
+            $errors[] = "Eroare la verificarea datelor!";
+        } else {
+            mysqli_stmt_bind_param($stmt, "s", $email);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $user = mysqli_fetch_assoc($result);
             
             if ($user) {
-                // Actualizează parola
+                //actualizam parola in caz ca exista user cu acel email 
                 $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
-                $stmt = $pdo->prepare("UPDATE users SET password = ?, updated_at = NOW() WHERE email = ?");
-                
-                if ($stmt->execute([$password_hash, $email])) {
-                    $success = "Parola a fost resetată cu succes pentru " . $user['full_name'] . "! Poți să te autentifici acum.";
-                    $old_data = []; // Curăță formularul
+                mysqli_stmt_close($stmt);
+                //again sa nu avem sql injections nici in parola
+                $query = "UPDATE users SET password = ?, updated_at = NOW() WHERE email = ?";
+                $stmt = mysqli_prepare($connection, $query);
+                if (!$stmt) {
+                    $errors[] = "Eroare la pregatirea actualizarii!";
                 } else {
-                    $errors[] = "Eroare la actualizarea parolei!";
+                    mysqli_stmt_bind_param($stmt, "ss", $password_hash, $email);
+                    if (mysqli_stmt_execute($stmt)) {
+                        $success = "Parola a fost resetata cu succes pentru " . $user['full_name'] . "! Poti sa te autentifici acum.";
+                        $old_data = [];//curatam formularu
+                    } else {
+                        $errors[] = "Eroare la actualizarea parolei!";
+                    }
+                    mysqli_stmt_close($stmt);
                 }
-            } else {
-                $errors[] = "Nu există niciun cont înregistrat cu acest email!";
+            } else { //navem useri cu acest email
+                $errors[] = "Nu exista niciun cont inregistrat cu acest email!";
+                mysqli_stmt_close($stmt);
             }
-        } catch (PDOException $e) {
-            $errors[] = "Eroare la resetarea parolei. Încearcă din nou!";
         }
     }
 }
@@ -76,14 +100,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoManager - Resetare Parolă</title>
-    <link rel="stylesheet" href="styles/login.css" type="text/css">
+    <title>EcoManager - Resetare Parola</title>
+    <link rel="stylesheet" href="styles/forgot_password.css" type="text/css">
 </head>
 <body>
+    <script src="scripts/validatepass.js"></script>
     <div class="container">
         <div class="welcome">
             <div class="logo">🔑</div>
-            <h1>Resetare Parolă</h1>
+            <h1>Resetare Parola</h1>
             <p>Introduce email-ul tau si o parola noua pentru a-ti reseta contul EcoManager.</p>
         </div>
         
@@ -126,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     
                     <!--verificare timp real parola-->
                     <div class="requirements">
-                        <small>Parola trebuie să conțină:</small>
+                        <small>Parola trebuie sa contina:</small>
                         <div id="req-length" class="requirement invalid">
                             <span class="requirement-icon">✗</span>
                             <span>Minimum 8 caractere</span>
@@ -137,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div id="req-lowercase" class="requirement invalid">
                             <span class="requirement-icon">✗</span>
-                            <span>O litera mică (a-z)</span>
+                            <span>O litera mica (a-z)</span>
                         </div>
                         <div id="req-number" class="requirement invalid">
                             <span class="requirement-icon">✗</span>
@@ -170,7 +195,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
-
-    <script src="scripts/validatepass.js"></script>
 </body>
 </html>
