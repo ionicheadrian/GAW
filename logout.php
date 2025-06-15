@@ -17,11 +17,11 @@ if (ini_get("session.use_cookies")) {
 // sterge sesiunea 
 session_destroy();
 
-face o sesiune noua
+// face o sesiune noua
 session_start();
 $_SESSION['success_message'] = "Te-ai delogat cu succes!";
 redirect('login.php');
 
 // de dezbatut daca sa il trimita la login sau la home :P
-// mai bine la login, ca sa nu aiba acces la home daca nu e logat
+// andrei: mai bine la login, ca sa nu aiba acces la home daca nu e logat
 ?>
