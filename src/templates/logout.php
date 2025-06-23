@@ -1,11 +1,11 @@
 <?php
-// Include configurația
-require_once 'config/config.php';   
+// Include configuratia
+require_once '../config/config.php';   
 
-// Șterge toate variabilele din sesiune
+// Sterge toate variabilele din sesiune
 $_SESSION = array();
 
-// Distruge cookie-ul de sesiune dacă există
+// Distruge cookie-ul de sesiune daca exista
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(session_name(), '', time() - 42000,

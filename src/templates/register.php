@@ -1,7 +1,7 @@
 <?php
-require_once 'config/config.php';   
+require_once '../config/config.php';   
 if (is_logged_in()) {
-    redirect('dashboard.php');
+    redirect('report.php');
 }
 
 $errors = [];
@@ -20,15 +20,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($full_name)) {
         $errors[] = "Numele este obligatoriu!";
     } elseif (strlen($full_name) < 2) {
-        $errors[] = "Numele trebuie să aibă cel puțin 2 caractere!";
+        $errors[] = "Numele trebuie sa aiba cel putin 2 caractere!";
     }
     
     if (empty($username)) {
         $errors[] = "Username-ul este obligatoriu!";
     } elseif (strlen($username) < 3) {
-        $errors[] = "Username-ul trebuie să aibă cel puțin 3 caractere!";
+        $errors[] = "Username-ul trebuie sa aiba cel putin 3 caractere!";
     } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
-        $errors[] = "Username-ul poate conține doar litere, cifre și underscore!";
+        $errors[] = "Username-ul poate contine doar litere, cifre si underscore!";
     }
     
     if (empty($email)) {
@@ -40,15 +40,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($password)) {
         $errors[] = "Parola este obligatorie!";
     } elseif (strlen($password) < 8) {
-        $errors[] = "Parola trebuie să aibă cel puțin 8 caractere!";
+        $errors[] = "Parola trebuie sa aiba cel putin 8 caractere!";
     } elseif (!preg_match('/[A-Z]/', $password)) {
-        $errors[] = "Parola trebuie să conțină cel puțin o literă mare!";
+        $errors[] = "Parola trebuie sa contina cel putin o litera mare!";
     } elseif (!preg_match('/[a-z]/', $password)) {
-        $errors[] = "Parola trebuie să conțină cel puțin o literă mică!";
+        $errors[] = "Parola trebuie sa contina cel putin o litera mica!";
     } elseif (!preg_match('/[0-9]/', $password)) {
-        $errors[] = "Parola trebuie să conțină cel puțin un număr!";
+        $errors[] = "Parola trebuie sa contina cel putin un numar!";
     } elseif (!preg_match('/[!@#$%^&*()_+\-=\[\]{};\':"\\|,.<>\/?]/', $password)) {
-        $errors[] = "Parola trebuie să conțină cel puțin un caracter special!";
+        $errors[] = "Parola trebuie sa contina cel putin un caracter special!";
     }
     
     if ($password !== $confirm_password) {
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             if (mysqli_num_rows($result) > 0) {
-                $errors[] = "Acest email este deja înregistrat!";
+                $errors[] = "Acest email este deja inregistrat!";
             }
             mysqli_stmt_close($stmt);
         }
@@ -95,11 +95,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $query = "INSERT INTO users (username, full_name, email, password, role, created_at) VALUES (?, ?, ?, ?, 'citizen', NOW())";
         $stmt = mysqli_prepare($connection, $query);
         if (!$stmt) {
-            $errors[] = "Eroare la pregătirea înregistrării!";
+            $errors[] = "Eroare la pregatirea inregistrarii!";
         } else {
             mysqli_stmt_bind_param($stmt, "ssss", $username, $full_name, $email, $password_hash);
             if (mysqli_stmt_execute($stmt)) {
-                $_SESSION['success_message'] = "Cont creat cu succes! Te poți autentifica acum.";
+                $_SESSION['success_message'] = "Cont creat cu succes! Te poti autentifica acum.";
                 mysqli_stmt_close($stmt);
                 redirect('login.php');
             } else {
@@ -115,15 +115,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoManager - Înregistrare</title>
-    <link rel="stylesheet" href="styles/register.css" type="text/css">
+    <title>EcoManager - Inregistrare</title>
+    <link rel="stylesheet" href="../public/css/register.css" type="text/css">
 </head>
 <body>
     <div class="container">
         <div class="welcome">
             <div class="logo">🌱</div>
             <h1>EcoManager</h1>
-            <p>Alatură-te comunitătii pentru un oras mai curat! Creeaza-ti contul si incepe sa contribui la un mediu mai sănatos.</p>
+            <p>Alatura-te comunitatii pentru un oras mai curat! Creeaza-ti contul si incepe sa contribui la un mediu mai sanatos.</p>
         </div>
         
         <div class="form-area">
@@ -163,10 +163,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="password" id="password" name="password" required>
                         <button type="button" class="password-toggle" onclick="togglePassword('password')">👁️</button>
                     </div>
-                    
                     <!--requirementurile in timp real-->
                     <div class="requirements">
-                        <small>Parola trebuie să contina:</small>
+                        <small>Parola trebuie sa contina:</small>
                         <div id="req-length" class="requirement invalid">
                             <span class="requirement-icon">✗</span>
                             <span>Minimum 8 caractere</span>
@@ -205,12 +204,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 <div class="footer-links">
                     <p>Ai deja cont? <a href="login.php">Autentifica-te aici</a></p>
-                    <p><small>Prin inregistrare acceptati <a href="#">Termenii si Condițiile</a></small></p>
+                    <p><small>Prin inregistrare acceptati <a href="#">Termenii si Conditiile</a></small></p>
                 </div>
             </form>
         </div>
     </div>
-<script src="scripts/validatepass.js"></script>
+<script src="../public/js/login.js"></script>
     
 </body>
 </html>

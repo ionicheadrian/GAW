@@ -1,7 +1,7 @@
 <?php
-require_once 'config/config.php';       // !!!!
+require_once '../config/config.php';       // !!!!
 if (is_logged_in()) {//verificam daca utilizatoru este logat
-    redirect('dashboard.php');
+    redirect('report.php');
 }
 
 //initializarea datelor
@@ -37,7 +37,7 @@ unset($_SESSION['error_messages'],$_SESSION['success_message'],$_SESSION['form_d
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoManager - Login</title>
-    <link rel="stylesheet" href="styles/login.css" type="text/css">
+    <link rel="stylesheet" href="../public/css/login.css" type="text/css">
 </head>
 <body>
     
@@ -45,7 +45,7 @@ unset($_SESSION['error_messages'],$_SESSION['success_message'],$_SESSION['form_d
         <div class="welcome">
             <div class="logo">🌱</div>
             <h1>EcoManager</h1>
-            <p>Sistemul tau inteligent pentru gestionarea deseurilor urbane. Contribuie la un oraa mai curat!</p>
+            <p>Sistemul tau inteligent pentru gestionarea deseurilor urbane. Contribuie la un oras mai curat!</p>
         </div>
         <div class="form-area">
             <?php if (!empty($errors)): ?>
@@ -74,7 +74,7 @@ unset($_SESSION['error_messages'],$_SESSION['success_message'],$_SESSION['form_d
                         <button type="button" class="password-toggle" onclick="togglePassword('password')">👁️</button>
                     </div>
                 </div>
-                <button type="submit" class="submit-button">Intră in cont</button>
+                <button type="submit" class="submit-button">Intra in cont</button>
                 <div class="footer-links">
                     <p>Nu ai cont? <a href="register.php">Inregistreaza-te aici</a></p>
                     <a href="forgot_password.php">Ai uitat parola?</a>
@@ -82,6 +82,6 @@ unset($_SESSION['error_messages'],$_SESSION['success_message'],$_SESSION['form_d
             </form>
         </div>
     </div>
-    <script src="scripts/validatepass.js"></script>
+    <script src="../public/js/login.js"></script>
 </body>
 </html>

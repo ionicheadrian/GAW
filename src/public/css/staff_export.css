@@ -1,0 +1,426 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    min-width: 320px; 
+}
+
+.main-content {
+    padding: 30px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+h1, h2 {
+    color: #2E7D32;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.export-form {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.export-form label {
+    font-weight: 600;
+    color: #2E7D32;
+    font-size: 1rem;
+}
+
+.export-form select, .export-form button {
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    font-size: 1rem;
+    margin-right: 4px;
+    box-sizing: border-box;
+}
+
+.export-form button {
+    background: linear-gradient(135deg, #4CAF50, #66BB6A);
+    color: white;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+.export-form button:hover {
+    box-shadow: 0 2px 8px rgba(76,175,80,0.15);
+}
+
+.export-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.export-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    min-width: 600px;
+}
+
+.export-table th, .export-table td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+    word-wrap: break-word;
+}
+
+.export-table th {
+    background: linear-gradient(135deg, #4CAF50, #66BB6A);
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.export-table tr:last-child td {
+    border-bottom: none;
+}
+
+.export-table tr:hover {
+    background: #f1f8e9;
+}
+
+.charts-section {
+    margin: 40px 0 0 0;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    padding: 32px 24px;
+}
+
+.charts-header {
+    margin-bottom: 24px;
+    color: #2E7D32;
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+}
+
+.chart-card {
+    background: #f8f9fa;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(76,175,80,0.07);
+    padding: 18px 12px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chart-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #388E3C;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.chart-canvas {
+    width: 100% !important;
+    max-width: 400px;
+    height: 260px !important;
+    margin: 0 auto;
+    display: block;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(76,175,80,0.05);
+}
+
+@media (max-width: 1024px) {
+    .main-content {
+        padding: 25px 15px;
+    }
+    
+    .charts-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 20px 12px;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    h2 {
+        font-size: 1.2rem;
+    }
+    
+    .export-form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 16px;
+    }
+    
+    .export-form label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .export-form select, .export-form button {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 8px;
+    }
+    
+    .charts-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .charts-section {
+        padding: 24px 16px;
+    }
+    
+    .export-table {
+        min-width: 500px;
+    }
+    
+    .export-table th, .export-table td {
+        padding: 8px 6px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .main-content {
+        padding: 15px 8px;
+    }
+    
+    h1 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+    
+    h2 {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+    
+    .export-form {
+        padding: 12px;
+        gap: 10px;
+    }
+    
+    .export-form select, .export-form button {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+    
+    .export-table {
+        min-width: 100%;
+        display: block;
+    }
+    
+    .export-table thead {
+        display: none;
+    }
+    
+    .export-table tbody {
+        display: block;
+    }
+    
+    .export-table tr {
+        display: block;
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        padding: 12px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    
+    .export-table td {
+        display: block;
+        width: 100%;
+        text-align: left !important;
+        padding: 6px 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .export-table td:last-child {
+        border-bottom: none;
+    }
+    
+    .export-table td:nth-child(1):before { content: "Data: "; font-weight: 600; color: #2E7D32; }
+    .export-table td:nth-child(2):before { content: "Utilizator: "; font-weight: 600; color: #2E7D32; }
+    .export-table td:nth-child(3):before { content: "Locație: "; font-weight: 600; color: #2E7D32; }
+    .export-table td:nth-child(4):before { content: "Tip deșeu: "; font-weight: 600; color: #2E7D32; }
+    .export-table td:nth-child(5):before { content: "Cantitate: "; font-weight: 600; color: #2E7D32; }
+    .export-table td:nth-child(6):before { content: "Observații: "; font-weight: 600; color: #2E7D32; }
+    
+    .charts-section {
+        padding: 20px 12px;
+    }
+    
+    .charts-header {
+        font-size: 1.1rem;
+        margin-bottom: 16px;
+    }
+    
+    .chart-title {
+        font-size: 1rem;
+        margin-bottom: 12px;
+    }
+    
+    .chart-canvas {
+        height: 250px !important;
+        max-width: 100%;
+    }
+    
+    .chart-card {
+        padding: 16px 12px;
+    }
+}
+
+@media (max-width: 400px) {
+    body {
+        font-size: 14px;
+    }
+    
+    .main-content {
+        padding: 12px 6px;
+    }
+    
+    h1 {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+    }
+    
+    h2 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+    
+    .export-form {
+        padding: 10px;
+        gap: 8px;
+    }
+    
+    .export-form select, .export-form button {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+    
+    .export-table tr {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .export-table td {
+        padding: 4px 0;
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+    
+    .export-table td:before {
+        font-size: 0.8rem;
+        display: inline-block;
+        width: 80px;
+        margin-right: 8px;
+    }
+    
+    .charts-section {
+        padding: 16px 8px;
+    }
+    
+    .charts-header {
+        font-size: 1rem;
+        margin-bottom: 12px;
+    }
+    
+    .chart-title {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+    }
+    
+    .chart-canvas {
+        height: 220px !important;
+    }
+    
+    .chart-card {
+        padding: 12px 8px;
+        border-radius: 10px;
+    }
+}
+
+
+.no-data-message {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 12px;
+    margin: 20px 0;
+    border-left: 4px solid #4CAF50;
+}
+
+.no-data-message h3 {
+    color: #2E7D32;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.no-data-message p {
+    color: #666;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+@media print {
+    .export-form,
+    .charts-section {
+        display: none;
+    }
+    
+    .main-content {
+        padding: 0;
+    }
+    
+    .export-table {
+        font-size: 12px;
+    }
+    
+    .export-table th, .export-table td {
+        padding: 4px;
+    }
+}
+
+.export-form select:focus,
+.export-form button:focus {
+    outline: 2px solid #4CAF50;
+    outline-offset: 2px;
+}

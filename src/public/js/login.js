@@ -208,12 +208,12 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
     const password = document.getElementById('loginPassword').value;
 
     if (!validateEmail(email)) {
-        alert('Te rog să introduci un email valid!');
+        alert('Te rog sa introduci un email valid!');
         return;
     }
 
     if (password.length < 6) {
-        alert('Parola trebuie să aibă cel puțin 6 caractere!');
+        alert('Parola trebuie sa aiba cel putin 6 caractere!');
         return;
     }
 
@@ -229,7 +229,7 @@ document.getElementById('signupForm').addEventListener('submit', function (e) {
     const fullName = document.getElementById('signupName').value;
 
     if (!validateEmail(email)) {
-        alert('Te rog să introduci un email valid!');
+        alert('Te rog sa introduci un email valid!');
         return;
     }
 
@@ -237,7 +237,7 @@ document.getElementById('signupForm').addEventListener('submit', function (e) {
     const allPasswordReqsMet = Object.values(passwordReqs).every(req => req);
 
     if (!allPasswordReqsMet) {
-        alert('Parola nu îndeplinește toate cerințele!');
+        alert('Parola nu indeplineste toate cerintele!');
         return;
     }
 
@@ -247,9 +247,9 @@ document.getElementById('signupForm').addEventListener('submit', function (e) {
     }
 
     if (fullName.length < 2) {
-        alert('Te rog să introduci numele complet!');
+        alert('Te rog sa introduci numele complet!');
         return;
     }
 
-    alert('Cont creat cu succes! (demo)\nNume: ' + fullName + '\nEmail: ' + email + '\nRol: Cetățean (default)');
+    alert('Cont creat cu succes! (demo)\nNume: ' + fullName + '\nEmail: ' + email + '\nRol: Cetatean (default)');
 });

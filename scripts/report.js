@@ -11,7 +11,7 @@ function initGPSFunctionality() {
     // in caz de succes pune deja datele in campurile cu coordonate
     getLocationBtn.addEventListener('click', function () {
         if (navigator.geolocation) {
-            this.textContent = '📍 Obtinand locatia...';
+            this.textContent = '\ud83d\udccd Obtinand locatia...';
             this.disabled = true;
 
             navigator.geolocation.getCurrentPosition(
@@ -22,7 +22,7 @@ function initGPSFunctionality() {
                     document.getElementById('longitude').value = position.coords.longitude.toFixed(6);
 
                     // actualizam stateul butonului
-                    getLocationBtn.textContent = '✅ Locatia obtinuta';
+                    getLocationBtn.textContent = '\u2705 Locatia obtinuta';
                     getLocationBtn.disabled = false;
 
                     //
@@ -47,13 +47,13 @@ function initGPSFunctionality() {
                             break;
                     }
                     alert(errorMessage);
-                    getLocationBtn.textContent = '📱 Foloseste GPS';
+                    getLocationBtn.textContent = '\ud83d\udcf1 Foloseste GPS';
                     getLocationBtn.disabled = false;
                 }
             );
         } else {
             alert('Browser-ul tau nu suporta Geolocation.');
-            getLocationBtn.textContent = '📱 Foloseste GPS';
+            getLocationBtn.textContent = '\ud83d\udcf1 Foloseste GPS';
             getLocationBtn.disabled = false;
         }
     });
@@ -138,7 +138,7 @@ function initRealTimeValidation() {
     }
 }
 
-// reset buttonnnnnnnnnn 
+// reset button
 function initResetFunctionality() {
     // apucam elementrul button cu typeul de reset (nu mai luam dupa id :P)
     const resetBtn = document.querySelector('button[type="reset"]');

@@ -1,0 +1,257 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    background: linear-gradient(135deg, #2E7D32, #388E3C);
+    padding: 15px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-links {
+    display: flex;
+    padding: 0;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+}
+
+.nav-links li {
+    list-style: none;
+}
+
+.pagini {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.pagini:hover {
+    background-color: rgba(255,255,255,0.15);
+    transform: translateY(-1px);
+}
+
+.nav-links .pagini.active {
+    background-color: rgba(255,255,255,0.2);
+    font-weight: 700;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.userprofile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+
+.userprofile:hover {
+    background-color: rgba(255,255,255,0.15);
+}
+
+.userpic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+.username {
+    font-weight: 500;
+    color: white;
+    font-size: 0.95rem;
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    min-width: 180px;
+    margin-top: 5px;
+}
+
+.userprofile:hover .profile-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-content {
+    padding: 8px 0;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px 16px;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+    border: none;
+}
+
+.dropdown-content a:hover {
+    background-color: #f5f5f5;
+    color: #2E7D32;
+}
+
+.dropdown-content hr {
+    margin: 4px 12px;
+    border: none;
+    border-top: 1px solid #eee;
+}
+
+
+.mobile-menu {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.mobile-menu:hover {
+    background-color: rgba(255,255,255,0.15);
+}
+
+@media (max-width: 768px) {
+    nav {
+        padding: 10px 15px;
+        position: relative;
+    }
+    
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, #2E7D32, #388E3C);
+        flex-direction: column;
+        padding: 10px 0;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        gap: 0;
+    }
+    
+    .nav-links.mobile-open {
+        display: flex;
+    }
+    
+    .nav-links li {
+        margin: 0;
+    }
+    
+    .nav-links .pagini {
+        padding: 15px 20px;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .nav-links .pagini:last-child {
+        border-bottom: none;
+    }
+    
+    .mobile-menu {
+        display: block;
+    }
+    
+    .username {
+        display: none;
+    }
+    
+    .userprofile {
+        padding: 5px;
+    }
+    
+    .profile-dropdown {
+        position: fixed;
+        top: 65px;
+        right: 15px;
+        left: auto;
+        width: 200px;
+    }
+}
+
+
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.nav-links.mobile-open {
+    animation: slideDown 0.3s ease-out;
+}
+
+.pagini::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #C8E6C9;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.pagini:hover::before,
+.pagini.active::before {
+    width: 80%;
+}
+
+.pagini {
+    position: relative;
+}
+
+.pagini:focus,
+.userprofile:focus,
+.mobile-menu:focus {
+    outline: 2px solid #2E7D32;
+    outline-offset: 2px;
+}
+
+.nav-links .pagini[href*="staff"] {
+    background: linear-gradient(135deg, rgba(46, 125, 50, 0.1), rgba(46, 125, 50, 0.05));
+    border-left: 3px solid #2E7D32;
+}
+
+.nav-links .pagini[href*="admin"] {
+    background: linear-gradient(135deg, rgba(183, 28, 28, 0.1), rgba(183, 28, 28, 0.05));
+    border-left: 3px solid #B71C1C;
+}

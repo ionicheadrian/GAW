@@ -1,5 +1,5 @@
 <?php
-require_once 'config/config.php';   
+require_once '../config/config.php';   
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') 
     redirect('login.php');
 
@@ -22,7 +22,7 @@ if (empty($err)) {
     $query = "SELECT id, username, full_name, email, password, role FROM users WHERE email = ?";
     $stmt = mysqli_prepare($connection, $query);
     if (!$stmt) {
-        $err[] = "Eroare la pregătirea interogării!";
+        $err[] = "Eroare la pregatirea interogarii!";
     } else {
         mysqli_stmt_bind_param($stmt, "s", $email);
         //executam quaery-ul
@@ -37,7 +37,7 @@ if (empty($err)) {
                 $_SESSION['user_role'] = $user['role']; //rolul
                 $_SESSION['username'] = $user['username'];  //usernameul
                 mysqli_stmt_close($stmt);
-                redirect('dashboard.php');
+                redirect('login.php');
             } else {
                 $err[] = "Email sau parola incorecta!";
             }

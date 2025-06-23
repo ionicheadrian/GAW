@@ -1,7 +1,7 @@
 <?php
-require_once 'config/config.php';      //!!!
+require_once '../config/config.php';      //!!!
 if (is_logged_in()) { //verifiacarea sesiunii
-    redirect('dashboard.php');
+    redirect('login.php');
 }
 //init
 $errors = [];
@@ -101,10 +101,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoManager - Resetare Parola</title>
-    <link rel="stylesheet" href="styles/forgot_password.css" type="text/css">
+    <link rel="stylesheet" href="../public/css/forgot_password.css" type="text/css">
 </head>
 <body>
-    <script src="scripts/validatepass.js"></script>
+    <script src="...scripts/validatepass.js"></script>
     <div class="container">
         <div class="welcome">
             <div class="logo">🔑</div>

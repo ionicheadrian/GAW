@@ -5,10 +5,10 @@ function togglePassword(inputId) {
     
     if (input.type === 'password') {
         input.type = 'text';
-        button.textContent = '🙈';
+        button.textContent = '\ud83d\ude48';
     } else {
         input.type = 'password';
-        button.textContent = '👁️';
+        button.textContent = '\ud83d\udc41\ufe0f';
     }
 }
 
@@ -36,11 +36,11 @@ function validatePassword(password) {
         if (hasMinLength) {
             lengthElement.classList.remove('invalid');
             lengthElement.classList.add('valid');
-            lengthIcon.textContent = '✓';
+            lengthIcon.textContent = '\u2713';
         } else {
             lengthElement.classList.remove('valid'); 
             lengthElement.classList.add('invalid');
-            lengthIcon.textContent = '✗';
+            lengthIcon.textContent = '\u2717';
         }
     }
     
@@ -51,11 +51,11 @@ function validatePassword(password) {
         if (hasUppercase) {
             uppercaseElement.classList.remove('invalid');
             uppercaseElement.classList.add('valid');
-            uppercaseIcon.textContent = '✓';
+            uppercaseIcon.textContent = '\u2713';
         } else {
             uppercaseElement.classList.remove('valid');
             uppercaseElement.classList.add('invalid');
-            uppercaseIcon.textContent = '✗';
+            uppercaseIcon.textContent = '\u2717';
         }
     }
     
@@ -66,11 +66,11 @@ function validatePassword(password) {
         if (hasLowercase) {
             lowercaseElement.classList.remove('invalid');
             lowercaseElement.classList.add('valid');
-            lowercaseIcon.textContent = '✓';
+            lowercaseIcon.textContent = '\u2713';
         } else {
             lowercaseElement.classList.remove('valid');
             lowercaseElement.classList.add('invalid');
-            lowercaseIcon.textContent = '✗';
+            lowercaseIcon.textContent = '\u2717';
         }
     }
     //nr
@@ -80,11 +80,11 @@ function validatePassword(password) {
         if (hasNumber) {
             numberElement.classList.remove('invalid');
             numberElement.classList.add('valid');
-            numberIcon.textContent = '✓';
+            numberIcon.textContent = '\u2713';
         } else {
             numberElement.classList.remove('valid');
             numberElement.classList.add('invalid');
-            numberIcon.textContent = '✗';
+            numberIcon.textContent = '\u2717';
         }
     }
     //caracter special
@@ -94,11 +94,11 @@ function validatePassword(password) {
         if (hasSpecial) {
             specialElement.classList.remove('invalid');
             specialElement.classList.add('valid');
-            specialIcon.textContent = '✓';
+            specialIcon.textContent = '\u2713';
         } else {
             specialElement.classList.remove('valid');
             specialElement.classList.add('invalid');
-            specialIcon.textContent = '✗';
+            specialIcon.textContent = '\u2717';
         }
     }
     
@@ -134,10 +134,10 @@ function checkPasswordMatch() {
     
     if (password === confirmPassword) { //all good
         matchIndicator.className = 'match-indicator show match-yes'; //schimbam css-ul
-        matchText.textContent = '✓ Parolele coincid'; //schimbam textul acelui element
+        matchText.textContent = '\u2713 Parolele coincid'; //schimbam textul acelui element
     } else {
         matchIndicator.className = 'match-indicator show match-no'; //schimbam css-ul
-        matchText.textContent = '✗ Parolele nu coincid'; //schimbam textul acelui element
+        matchText.textContent = '\u2717 Parolele nu coincid'; //schimbam textul acelui element
     }
 }
 
