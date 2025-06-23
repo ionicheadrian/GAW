@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';        
-$dbname = 'gwa';           
+$dbname = 'gaw';           
 $username = 'root';         
 $password = '';             
 //ne conectam la baza de date
